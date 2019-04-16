@@ -54,7 +54,7 @@ test('css inserts styles to sheet', t => {
   const a = cx({ m: 2 })
   t.is(sheet.cssRules.length, 1)
   const [ rule ] = sheet.cssRules
-  t.is(rule.style.margin, '16px')
+  t.is(rule.style.margin, '8px')
 })
 
 test('css inserts responsive styles', t => {
@@ -62,8 +62,8 @@ test('css inserts responsive styles', t => {
   t.is(sheet.cssRules.length, 2)
   const [ baseRule, mobile ] = sheet.cssRules
   const [ mobileRule ] = mobile.cssRules
-  t.is(baseRule.style.margin, '8px')
-  t.is(mobileRule.style.margin, '16px')
+  t.is(baseRule.style.margin, '4px')
+  t.is(mobileRule.style.margin, '8px')
 })
 
 test('css dedupes repeated styles', t => {
@@ -94,8 +94,8 @@ test('css parses margins', t => {
   cx({ m: -24 })
   cx({ m: 'auto' })
   const [ a, b, c, d, e ] = sheet.cssRules
-  t.is(a.style.margin, '8px')
-  t.is(b.style.margin, '-16px')
+  t.is(a.style.margin, '4px')
+  t.is(b.style.margin, '-8px')
   t.is(c.style.margin, '24px')
   t.is(d.style.margin, '-24px')
   t.is(e.style.margin, 'auto')
@@ -110,15 +110,15 @@ test('css parses margin directions', t => {
   cx({ mx: 1 })
   cx({ my: 1 })
   const [ a, top, r, b, l, x, y  ] = sheet.cssRules
-  t.is(a.style.margin, '8px')
-  t.is(top.style['margin-top'], '8px')
-  t.is(r.style['margin-right'], '8px')
-  t.is(b.style['margin-bottom'], '8px')
-  t.is(l.style['margin-left'], '8px')
-  t.is(x.style['margin-left'], '8px')
-  t.is(x.style['margin-right'], '8px')
-  t.is(y.style['margin-top'], '8px')
-  t.is(y.style['margin-bottom'], '8px')
+  t.is(a.style.margin, '4px')
+  t.is(top.style['margin-top'], '4px')
+  t.is(r.style['margin-right'], '4px')
+  t.is(b.style['margin-bottom'], '4px')
+  t.is(l.style['margin-left'], '4px')
+  t.is(x.style['margin-left'], '4px')
+  t.is(x.style['margin-right'], '4px')
+  t.is(y.style['margin-top'], '4px')
+  t.is(y.style['margin-bottom'], '4px')
 })
 
 test('css parses paddings', t => {
@@ -126,7 +126,7 @@ test('css parses paddings', t => {
   cx({ p: 24 })
   cx({ p: '20%' })
   const [ a, b, c ] = sheet.cssRules
-  t.is(a.style.padding, '8px')
+  t.is(a.style.padding, '4px')
   t.is(b.style.padding, '24px')
   t.is(c.style.padding, '20%')
 })
@@ -140,15 +140,60 @@ test('css parses padding directions', t => {
   cx({ px: 1 })
   cx({ py: 1 })
   const [ a, top, r, b, l, x, y  ] = sheet.cssRules
-  t.is(a.style.padding, '8px')
-  t.is(top.style['padding-top'], '8px')
-  t.is(r.style['padding-right'], '8px')
-  t.is(b.style['padding-bottom'], '8px')
-  t.is(l.style['padding-left'], '8px')
-  t.is(x.style['padding-left'], '8px')
-  t.is(x.style['padding-right'], '8px')
-  t.is(y.style['padding-top'], '8px')
-  t.is(y.style['padding-bottom'], '8px')
+  t.is(a.style.padding, '4px')
+  t.is(top.style['padding-top'], '4px')
+  t.is(r.style['padding-right'], '4px')
+  t.is(b.style['padding-bottom'], '4px')
+  t.is(l.style['padding-left'], '4px')
+  t.is(x.style['padding-left'], '4px')
+  t.is(x.style['padding-right'], '4px')
+  t.is(y.style['padding-top'], '4px')
+  t.is(y.style['padding-bottom'], '4px')
+})
+
+test('css width special units', t => {
+  cx({ w: '1ui' })
+  cx({ w: '1md' })
+  cx({ w: '1bl' })
+  const [ a, b, c ] = sheet.cssRules
+  t.is(a.style.width, '4px')
+  t.is(b.style.width, '8px')
+  t.is(c.style.width, '56px')
+})
+
+test('css padding special units', t => {
+  cx({ p: '1ui' })
+  cx({ p: '1md' })
+  cx({ p: '1bl' })
+  const [ a, b, c ] = sheet.cssRules
+  t.is(a.style.padding, '4px')
+  t.is(b.style.padding, '8px')
+  t.is(c.style.padding, '56px')
+})
+
+test('css margin special units', t => {
+  cx({ m: '1ui' })
+  cx({ m: '1md' })
+  cx({ m: '1bl' })
+  const [ a, b, c ] = sheet.cssRules
+  t.is(a.style.margin, '4px')
+  t.is(b.style.margin, '8px')
+  t.is(c.style.margin, '56px')
+})
+
+test('css min/max/w/h/ special units', t => {
+  cx({
+    minw: '2ui',
+    maxw: '3ui',
+    minh: '4ui',
+    maxh: '5ui'
+  })
+  const [ a, b, c, d ] = sheet.cssRules;
+
+  t.is(a.style['min-width'], '8px')
+  t.is(b.style['max-width'], '12px')
+  t.is(c.style['min-height'], '16px')
+  t.is(d.style['max-height'], '20px')
 })
 
 test('css parses flexbox styles', t => {
@@ -171,25 +216,17 @@ test('css parses flexbox styles', t => {
   t.is(g.style['justify-content'], 'space-between')
 })
 
-test('snapshot', t => {
-  const box = render(<Box />).toJSON()
-  const flex = render(<Flex />).toJSON()
-  t.snapshot(box)
-  t.snapshot(flex)
-})
-
 test('react context', t => {
   const ctx = {
     space: [ 0, 6, 12, 18, 24, 30 ],
     breakpoints: [ 32, 48, 64 ]
   }
-  const box = render(
+  render(
     <ReflexProvider {...ctx}>
       <Box m={1} w={[ 1, 1/2 ]} />
     </ReflexProvider>
-  ).toJSON()
+  )
   const [ m, w1, w2 ] = sheet.cssRules
-  t.snapshot(box)
   t.is(m.style.margin, '6px')
   t.is(w1.style.width, '100%')
   t.is(w2.media[0], 'screen and (min-width:32em)')

@@ -1,38 +1,34 @@
 
 # Reflexbox
 
-Responsive React Flexbox Grid System
+Responsive react flexbox grid system.
+Forked from http://jxnblk.com/reflexbox
 
-http://jxnblk.com/reflexbox
+**WARNING: Only for Infotech Group employee usage!**
 
-[![Build Status](https://travis-ci.org/jxnblk/reflexbox.svg?branch=master)](https://travis-ci.org/jxnblk/reflexbox)
-[![npm version](https://badge.fury.io/js/reflexbox.svg)](https://badge.fury.io/js/reflexbox)
+## Differences from the original version
 
-
-## Features
-
-- Simple API for quickly controlling layout
-- Helps promote composability and separation of concerns
-- CSS-in-JS built in - no external dependencies
-- Only generates the CSS needed to render
+- Special units (ui, md, bl) for all quantities
+- Support height, (min|max)-height, (min|max)-width
+- Alternate dimensions
 
 ## Getting Started
 
 ```
-npm install reflexbox
+npm install github:infotech-group/reflexbox
 ```
 
 ```jsx
 import React from 'react'
-import { Flex, Box } from 'reflexbox'
+import { Box } from '@infotech/reflexbox'
 
 class Component extends React.Component {
   render() {
     return (
-      <Flex p={2} align='center'>
+      <Box flex>
         <Box px={2} w={1/2}>Box A</Box>
         <Box px={2} w={1/2}>Box B</Box>
-      </Flex>
+      </Box>
     )
   }
 }
@@ -49,6 +45,9 @@ class Component extends React.Component {
 
 // Responsive widths
 <Box w={[ 1, 1/2, 1/4 ]} />
+
+// Special units
+<Box w="1md" />
 
 // Padding
 <Box p={2} />
@@ -76,6 +75,14 @@ class Component extends React.Component {
 // y-axis
 <Box my={3} />
 
+// min/max width, min/max-height
+<Box
+  minw="1ui"
+  maxw="2bl"
+  minh="1md"
+  maxw="5bl"
+/>
+
 // align-items: center
 <Flex align='center' />
 
@@ -97,19 +104,20 @@ class Component extends React.Component {
 
 ## API
 
-### `<Flex />`
-
-Component primitive with `display: flex`
-
 ### `<Box />`
 
-Primitive for controlling width, margin, padding and more.
+Primitive for controlling width, height, margin, padding and more.
 
 ### Props
 
 Both `<Flex />` and `<Box />` share the same props.
 
-- `w` (number|string) sets width, where numbers 0-1 are percentage values, larger numbers are pixel values, and strings are raw CSS values with units.
+- `w` (number|array|string) sets width, where numbers 0-1 are percentage values, larger numbers are pixel values, and strings are raw CSS values with units.
+- `h` (number|array|string) sets height in the same way as width
+- `minw` (number|array|string) sets min-width
+- `maxw` (number|array|string) sets max-width
+- `minh` (number|array|string) sets min-height
+- `maxh` (number|array|string) sets max-height
 - `flex` (boolean) sets `display: flex`
 - `wrap` (boolean) sets `flex-wrap: wrap`
 - `column` (boolean) sets `flex-direction: column`
@@ -123,7 +131,7 @@ Both `<Flex />` and `<Box />` share the same props.
 Margin and padding props accept numbers `0-4` for values from the spacing scale `[ 0, 8, 16, 32, 64 ]`.
 Numbers greater than 4 will be used as pixel values.
 Negative values can be used for negative margins.
-Strings can be passed for other CSS values, e.g. `mx='auto'`
+Strings can be passed for special units, and other CSS values, e.g. `mx='auto'`
 
 - `m`  (number|string) margin based on a scale from 0–4.
 - `mx` (number|string) x-axis margin based on a scale from 0–4.
@@ -218,15 +226,4 @@ const App = () => (
 This currently *DOES NOT* work in Node.js server-side applications.
 If you need server-side support, see version `^2.2.0` or one of the related libraries below.
 
----
-
-### Related
-
-- [Axs](http://jxnblk.com/axs)
-- [Grid Styled](http://jxnblk.com/grid-styled)
-- [Gx](http://jxnblk.com/gx)
-- [Rebass](http://jxnblk.com/rebass)
-- [Reline](http://jxnblk.com/reline)
-
 [MIT License](.github/LICENSE.md)
-
