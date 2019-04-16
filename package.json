@@ -4,9 +4,9 @@
   "description": "Responsive react flexbox grid system on steroids special",
   "main": "dist/index.js",
   "scripts": {
-    "build": "NODE_ENV=production PACKAGE_VER=1.2.3 webpack -p",
-    "start": "PACKAGE_VER=1.2.3 webpack-dev-server",
-    "prepublish": "PACKAGE_VER=1.2.3 mkdir -p dist && PACKAGE_VER=1.2.3 babel src --out-dir dist",
+    "build": "NODE_ENV=production PACKAGE_VER=$(cat package.json | json -a version) webpack -p",
+    "start": "PACKAGE_VER=$(cat package.json | json -a version) webpack-dev-server",
+    "prepack": "mkdir -p dist && PACKAGE_VER=$(cat package.json | json -a version) babel src --out-dir dist",
     "test": "ava",
     "card": "repng docs/Card.js --dev"
   },
@@ -30,6 +30,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "browser-env": "^3.2.4",
+    "json": "^9.0.6",
     "raw-loader": "^0.5.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -62,11 +63,14 @@
       "react"
     ],
     "plugins": [
-      ["transform-inline-environment-variables", {
-        "include": [
-          "PACKAGE_VER"
-        ]
-      }]
+      [
+        "transform-inline-environment-variables",
+        {
+          "include": [
+            "PACKAGE_VER"
+          ]
+        }
+      ]
     ]
   },
   "ava": {

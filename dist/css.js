@@ -19,7 +19,7 @@ var UNIT_REG = /^([-\d]+)([\D]+)$/;
 var cache = {};
 
 /* Define unique classname prefix to prevent conflicts between different versions of the same package */
-var version = ('1.2.3' || 'test').replace(/\./g, '_');
+var version = ('0.1.0' || 'test').replace(/\./g, '_');
 var className = 'reflexbox_' + version + '_';
 var unitified = new WeakMap();
 /* Convert custom unit to native */
