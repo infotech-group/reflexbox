@@ -56,23 +56,6 @@
   "bugs": {
     "url": "https://github.com/infotech-group/reflexbox/issues"
   },
-  "babel": {
-    "presets": [
-      "env",
-      "stage-0",
-      "react"
-    ],
-    "plugins": [
-      [
-        "transform-inline-environment-variables",
-        {
-          "include": [
-            "PACKAGE_VER"
-          ]
-        }
-      ]
-    ]
-  },
   "ava": {
     "require": [
       "babel-register"
