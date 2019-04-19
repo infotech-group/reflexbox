@@ -1,12 +1,12 @@
 {
   "name": "@infotech/reflexbox",
-  "version": "0.1.0",
+  "version": "3.1.0",
   "description": "Responsive react flexbox grid system on steroids special",
   "main": "dist/index.js",
   "scripts": {
     "build": "NODE_ENV=production PACKAGE_VER=$(cat package.json | json -a version) webpack -p",
     "start": "PACKAGE_VER=$(cat package.json | json -a version) webpack-dev-server",
-    "prepack": "mkdir -p dist && PACKAGE_VER=$(cat package.json | json -a version) babel src --out-dir dist",
+    "prepublishOnly": "mkdir -p dist && PACKAGE_VER=$(cat package.json | json -a version) babel src --out-dir dist",
     "test": "ava",
     "card": "repng docs/Card.js --dev"
   },
