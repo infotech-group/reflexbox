@@ -6,9 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production PACKAGE_VER=$(cat package.json | json -a version) webpack -p",
     "start": "PACKAGE_VER=$(cat package.json | json -a version) webpack-dev-server",
-    "prepublishOnly": "mkdir -p dist && PACKAGE_VER=$(cat package.json | json -a version) babel src --out-dir dist",
-    "test": "ava",
-    "card": "repng docs/Card.js --dev"
+    "prepublishOnly": "mkdir -p dist && PACKAGE_VER=$(cat package.json | json -a version) babel src --out-dir dist"
   },
   "author": "Brent Jackson",
   "contributors": [
