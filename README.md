@@ -1,21 +1,20 @@
 
 # Reflexbox
 
-Responsive react flexbox grid system.
-Forked from http://jxnblk.com/reflexbox
-
 **WARNING: Only for Infotech Group employee usage!**
 
-## Differences from the original version
+Responsive react flexbox grid system on steroids.
 
-- Special units (ui, md, bl) for all quantities
+## Differences from the original version 3.0.1
+
+- Support special units (ui, md, bl) for all quantities
 - Support height, (min|max)-height, (min|max)-width
 - Alternate dimensions
 
 ## Getting Started
 
 ```
-npm install github:infotech-group/reflexbox
+npm install @infotech/reflexbox
 ```
 
 ```jsx
@@ -176,7 +175,7 @@ Context can be set manually or with the `<ReflexProvider />` component.
 
 ```jsx
 import React from 'react'
-import { ReflexProvider, Flex, Box } from 'reflexbox'
+import { ReflexProvider, Flex, Box } from '@infotech/reflexbox'
 
 const space = [ 0, 6, 12, 18, 24 ]
 const breakpoints = [ 32, 48, 64 ]
@@ -205,7 +204,7 @@ The core Reflexbox higher-order component can be used on any element that accept
 
 ```jsx
 import React from 'react'
-import { reflex } from 'reflexbox'
+import { reflex } from '@infotech/reflexbox'
 import MyInput from './MyInput'
 
 const FlexInput = reflex(MyInput)
@@ -221,9 +220,4 @@ const App = () => (
 )
 ```
 
-### Caveats
-
-This currently *DOES NOT* work in Node.js server-side applications.
-If you need server-side support, see version `^2.2.0` or one of the related libraries below.
-
-[MIT License](.github/LICENSE.md)
+[MIT License](./LICENSE.md)
